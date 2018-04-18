@@ -1,0 +1,45 @@
+version: '3'
+volumes:
+  dados:
+networks:
+  otus-db:
+  otus-front:
+  otus-back:
+services:
+  mongodb_server:
+    image: mongo:3.6
+    container_name: mongodb_server
+    env_file:
+      - .env
+    volumes:
+      - ${DATA-./mongodb/mongoData/}:/data/db/
+      - ./mongodb/mongod.conf:/etc/mongo.conf
+      - ${DB_BUILD_SCRIPT-./mongodb/dumie.js}:/docker-entrypoint-initdb.d/initdb.js
+    networks:
+      - otus-db
+    ports:
+      - 27017:27017
+    command:
+      - '--auth'
+      - '-f'
+      - '/etc/mongo.conf'
+  nginx_server:
+    container_name: nginx_server
+    image: nginx:1.12.1
+    depends_on:
+      - wildfly_server
+    volumes:
+      - ${NGINX_CONF_PATH-./nginx/}${NGINX_CONF_FILE_NAME-dumie.conf}:/etc/nginx/${NGINX_CONF_FILE_NAME-dumie.conf}
+      - ./nginx/sites-enable/:/etc/nginx/sites-enable
+      - ${HTML_DIRECTORY_PATH-./nginx/html}:/usr/share/nginx/html/
+    networks:
+      - otus-front
+    ports:
+      - 80:80
+  wildfly_server:
+    container_name: wildfly_server
+    image: jboss/wildfly
+    depends_on:
+      - mongodb_server
+    networks:
+      - otus-back
