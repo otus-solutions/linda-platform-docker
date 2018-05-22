@@ -3,11 +3,8 @@ volumes:
   dados:
 networks:
   otus-api:
-    driver: bridge
   otus-front:
-    driver: bridge
   otus-db:
-    driver: bridge
 services:
   mongodb_server:
     image: mongo:3.6
@@ -16,7 +13,7 @@ services:
       - .env
     volumes:
       - ${DATA-./mongodb/mongoData/}:/data/db/
-      - ./mongodb/mongod.conf:/etc/mongo.conf
+      - ${MONGO_CONF_PATH-./mongodb/mongod.conf}:/etc/mongo.conf
       - ${DB_BUILD_SCRIPT-./mongodb/dumie.js}:/docker-entrypoint-initdb.d/initdb.js
     networks:
       - otus-db
@@ -32,8 +29,8 @@ services:
     depends_on:
       - wildfly_server
     volumes:
-      - ./nginx/sites-enabled:/etc/nginx/sites-enabled/
-      - ./nginx/sites-available:/etc/nginx/sites-available/
+      - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/etc/nginx/sites-enabled/
+      - ${NGINX_AVAILABLE_PATH-./nginx/sites-available}:/etc/nginx/sites-available/
       - ${NGINX_CONF_PATH-./nginx/nginx.conf}:/etc/nginx/nginx.conf
     networks:
       - otus-front
@@ -45,12 +42,14 @@ services:
     command:
       - '-g'
       - 'daemon off;'
+    links:
+      - wildfly_server
   wildfly_server:
     container_name: wildfly_server
     image: jboss/wildfly:9.0.1.Final
     volumes:
-      - ./wildfly/standalone.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
-      - ./wildfly/standalone.conf:/opt/jboss/wildfly/bin/standalone.conf
+      - ${WILDFLY_XML-./wildfly/standalone.xml}:/opt/jboss/wildfly/standalone/configuration/standalone.xml
+      - ${WILDFLY_CONF-./wildfly/standalone.conf}:/opt/jboss/wildfly/bin/standalone.conf
     depends_on:
       - mongodb_server
     networks:
@@ -59,3 +58,5 @@ services:
     ports:
       - 9990:9990
       - 8080:8080
+    links:
+      - mongodb_server

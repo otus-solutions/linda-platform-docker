@@ -12,7 +12,7 @@ db.createUser(
     {
         user: "otus",
         pwd: "a9J1sVtL",
-        roles: [ { role: "dbAdmin", db: "otus" } ]
+        roles: [ { role: "dbOwner", db: "otus" } ]
     }
 );
 db.createCollection("activity");

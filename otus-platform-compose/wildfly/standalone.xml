@@ -78,6 +78,12 @@
                         <user name="$local"/>
                     </include>
                 </role>
+                <role name="Administrator">
+                    <include>
+                        <user realm="admin" name="admin"/>
+                        <user realm="localhost" name="admin"/>
+                    </include>
+                </role>
             </role-mapping>
         </access-control>
     </management>
@@ -376,7 +382,7 @@
             </filters>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:webservices:2.0">
-            <wsdl-host>${jboss.bind.address:127.0.0.1}</wsdl-host>
+            <wsdl-host>${jboss.bind.address:0.0.0.0}</wsdl-host>
             <endpoint-config name="Standard-Endpoint-Config"/>
             <endpoint-config name="Recording-Endpoint-Config">
                 <pre-handler-chain name="recording-handlers" protocol-bindings="##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM">
