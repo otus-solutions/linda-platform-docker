@@ -33,7 +33,7 @@ services:
       - wildfly_server
     volumes:
       - ./nginx/sites-enabled:/etc/nginx/sites-enabled/
-      - ./nginx/ssl:/etc/nginx/ssl/
+      - ./nginx/sites-available:/etc/nginx/sites-available/
       - ${NGINX_CONF_PATH-./nginx/nginx.conf}:/etc/nginx/nginx.conf
     networks:
       - otus-front
@@ -41,11 +41,16 @@ services:
     ports:
       - 80:80
       - 443:443
+    entrypoint: nginx
+    command:
+      - '-g'
+      - 'daemon off;'
   wildfly_server:
     container_name: wildfly_server
     image: jboss/wildfly:9.0.1.Final
     volumes:
-      - ./wildfly/standalone.xml:/opt/wildfly/standalone/configuration/standalone.xml
+      - ./wildfly/standalone.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
+      - ./wildfly/standalone.conf:/opt/jboss/wildfly/bin/standalone.conf
     depends_on:
       - mongodb_server
     networks:
