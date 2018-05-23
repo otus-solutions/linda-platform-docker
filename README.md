@@ -14,4 +14,8 @@
  > sudo docker exec -ti wildfly_server /opt/jboss/wildfly/bin/add-user.sh admin rBQqsMXU --silent
 
 ## Deploy
+- API
 Execute o build informando o database.host=mongodb_server e após execute o deploy normalmente.
+
+- Front-end
+> sudo docker cp otus/. nginx_server:/usr/share/nginx/html/
