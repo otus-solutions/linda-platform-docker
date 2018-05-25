@@ -9,6 +9,7 @@ services:
   mongodb_server:
     image: mongo:3.6
     container_name: mongodb_server
+    restart: always
     env_file:
       - .env
     volumes:
@@ -26,6 +27,7 @@ services:
   nginx_server:
     container_name: nginx_server
     image: nginx:1.12.1
+    restart: always
     depends_on:
       - wildfly_server
     volumes:
@@ -48,6 +50,7 @@ services:
   wildfly_server:
     container_name: wildfly_server
     image: jboss/wildfly:9.0.1.Final
+    restart: always
     volumes:
       - ${WILDFLY_XML-./wildfly/standalone.xml}:/opt/jboss/wildfly/standalone/configuration/standalone.xml
       - ${WILDFLY_CONF-./wildfly/standalone.conf}:/opt/jboss/wildfly/bin/standalone.conf
