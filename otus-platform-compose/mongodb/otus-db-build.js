@@ -40,7 +40,7 @@ db.createUser(
     {
         user: "otus",
         pwd: "fLACLaFL",
-        roles: [ { role: "dbAdmin", db: "otus-domain" } ]
+        roles: [ { role: "dbOwner", db: "otus-domain" } ]
     }
 );
 db.createCollection("auditor");

@@ -15,7 +15,7 @@ services:
     volumes:
       - ${DATA-./mongodb/mongoData/}:/data/db/
       - ${MONGO_CONF_PATH-./mongodb/mongod.conf}:/etc/mongo.conf
-      - ${DB_BUILD_SCRIPT-./mongodb/dumie.js}:/docker-entrypoint-initdb.d/initdb.js
+      - ./mongodb/otus-db-build.js:/docker-entrypoint-initdb.d/initdb.js
     networks:
       - otus-db
     ports:
