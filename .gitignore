@@ -1,3 +1,3 @@
 .idea/
 **/mongoData/
-**/*/standalone.xml
+/otus-plataform-compose/wildfly/standalone.xml

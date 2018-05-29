@@ -7,7 +7,7 @@ networks:
   otus-db:
 services:
   mongodb_server:
-    image: mongo:3.6
+    image: mongo:3.6.2
     container_name: mongodb_server
     restart: always
     env_file:
