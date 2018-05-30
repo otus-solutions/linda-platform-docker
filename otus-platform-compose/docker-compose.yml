@@ -61,5 +61,6 @@ services:
     ports:
       - 9990:9990
       - 8080:8080
+      - 8787:8787
     links:
       - mongodb_server
