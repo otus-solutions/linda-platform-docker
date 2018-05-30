@@ -53,6 +53,7 @@ services:
     restart: always
     volumes:
       - ${WILDFLY_XML-./wildfly/standalone.xml}:/opt/jboss/wildfly/standalone/configuration/standalone.xml
+      - ${WILDFLY_CONF-./wildfly/standalone.conf}:/opt/jboss/wildfly/bin/standalone.conf #Caso esteja utilizando a plataforma Windows, comente essa linha!
     depends_on:
       - mongodb_server
     networks:
