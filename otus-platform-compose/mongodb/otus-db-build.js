@@ -7,6 +7,7 @@ db.createUser(
     }
 );
 db.auth("admin","XRYs9yjU");
+
 db = db.getSiblingDB('otus');
 db.createUser(
     {
@@ -15,26 +16,7 @@ db.createUser(
         roles: [ { role: "dbOwner", db: "otus" } ]
     }
 );
-db.createCollection("activity");
-db.createCollection("activity_configuration");
-db.createCollection("auditor");
-db.createCollection("datasource");
-db.createCollection("exam_lot");
-db.createCollection("exam_result");
-db.createCollection("exam_result_lot");
-db.createCollection("exam_sending_lot");
-db.createCollection("field_center");
-db.createCollection("filestore.chunks");
-db.createCollection("filestore.files");
-db.createCollection("laboratory_configuration");
-db.createCollection("participant");
-db.createCollection("participant_laboratory");
-db.createCollection("participant_quality_control");
-db.createCollection("report");
-db.createCollection("survey");
-db.createCollection("system_config");
-db.createCollection("transportation_lot");
-db.createCollection("user");
+
 db = db.getSiblingDB('otus-domain');
 db.createUser(
     {
@@ -43,9 +25,3 @@ db.createUser(
         roles: [ { role: "dbOwner", db: "otus-domain" } ]
     }
 );
-db.createCollection("auditor");
-db.createCollection("EmailSender");
-db.createCollection("Projec");
-db.createCollection("Repository");
-db.createCollection("system_config");
-db.createCollection("user");
