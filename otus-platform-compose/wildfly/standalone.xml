@@ -419,12 +419,4 @@
         </outbound-socket-binding>
     </socket-binding-group>
 
-    <deployments>
-        <deployment name="otus-domain-ear.ear" runtime-name="otus-domain-ear.ear">
-            <content sha1="83dceb0f3ffaeceef384df2cab7471146de0fedc"/>
-        </deployment>
-        <deployment name="otus-ear.ear" runtime-name="otus-ear.ear">
-            <content sha1="0ccab865bf7e6b80e63c699ec7d64d716d81f5c0"/>
-        </deployment>
-    </deployments>
 </server>
