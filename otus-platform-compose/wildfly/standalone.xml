@@ -418,4 +418,13 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
+
+    <deployments>
+        <deployment name="otus-domain-ear.ear" runtime-name="otus-domain-ear.ear">
+            <content sha1="efb8dc7d5c9a574ab93fb5a14a2849e69fa706f0"/>
+        </deployment>
+        <deployment name="otus-ear.ear" runtime-name="otus-ear.ear">
+            <content sha1="99bc2e335c955f35c192665370df413a843fdcc4"/>
+        </deployment>
+    </deployments>
 </server>

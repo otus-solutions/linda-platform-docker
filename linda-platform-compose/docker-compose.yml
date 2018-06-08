@@ -1,0 +1,65 @@
+version: '3.1'
+volumes:
+  dados:
+networks:
+  linda-api:
+  linda-db:
+  linda-front:
+services:
+  postgres_server:
+    image: postgres:9.6
+    container_name: postgres_server
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - linda-db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/init.sh:/docker-entrypoint-initdb.d/init.sh
+    command:
+      - 'postgres'
+  linda_nginx:
+    container_name: linda_nginx
+    image: nginx:1.12.1
+    depends_on:
+      - jboss_server
+    volumes:
+      - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/etc/nginx/sites-enabled/
+      - ${NGINX_AVAILABLE_PATH-./nginx/sites-available}:/etc/nginx/sites-available/
+      - ${NGINX_SSL_PATH-./nginx/ssl}:/etc/nginx/ssl/
+      - ${NGINX_CONF_PATH-./nginx/nginx.conf}:/etc/nginx/nginx.conf
+    networks:
+      - linda-front
+      - linda-api
+    ports:
+      - 80:80
+      - 443:443
+    entrypoint: nginx
+    command:
+      - '-g'
+      - 'daemon off;'
+    links:
+      - jboss_server
+  jboss_server:
+    container_name: jboss_server
+    image: tiagomatana/jboss:7.1.1
+    # build:
+    #   context: ./jboss
+    #   dockerfile: Dockerfile
+    # restart: always
+    depends_on:
+      - postgres_server
+    volumes:
+      - ${JBOS_XML-./jboss/standalone.xml}:/opt/jboss/jboss-as-7.1.1.Final/standalone/configuration/standalone.xml
+      - ${JBOS_CONF-./jboss/standalone.conf}:/opt/jboss/jboss-as-7.1.1.Final/bin/standalone.conf #Caso esteja utilizando a plataforma Windows, comente essa linha!
+    networks:
+      - linda-api
+      - linda-db
+    ports:
+      - 9990:9990
+      - 9999:9999
+      - 8080:8080
+    links:
+      - postgres_server
