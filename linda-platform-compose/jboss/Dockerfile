@@ -10,10 +10,10 @@ USER root
 
 RUN mkdir -p /usr/lib/jvm
 RUN mkdir -p /opt/jboss
-COPY java-7-oracle.tar.xz/ /java-7-oracle.tar.xz
-RUN tar xf /java-7-oracle.tar.xz -C /usr/lib/jvm
-COPY jboss-as-7.1.1.tar.xz/ /jboss-as-7.1.1.tar.xz
-RUN tar xf /jboss-as-7.1.1.tar.xz -C /opt/jboss
+COPY java-7-oracle/ /usr/lib/jvm/java-7-oracle
+# RUN tar xf /java-7-oracle.tar.xz -C /usr/lib/jvm
+COPY jboss-as-7.1.1.Final/ /opt/jboss/jboss-as-7.1.1.Final
+# RUN tar xf /jboss-as-7.1.1.tar.xz -C /opt/jboss
 USER jboss
 
 # Set the JAVA_HOME variable to make it clear where Java is located
