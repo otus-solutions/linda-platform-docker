@@ -1,11 +1,5 @@
 #!/bin/sh
-
-psql --host 127.0.0.1 --port 5432 --dbname=linda --username=postgres --pass kg7CknsvzCVkk7Sd <<-EOSQL
-CREATE ROLE estatistica LOGIN ENCRYPTED PASSWORD 'md5f82024a95405f2ee8f854be66cd4d939' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE;
-
-CREATE ROLE icareweb LOGIN ENCRYPTED PASSWORD 'md5f82024a95405f2ee8f854be66cd4d939' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE;
-
-CREATE SCHEMA coorte AUTHORIZATION postgres;
-CREATE SCHEMA extraction AUTHORIZATION postgres;
-CREATE SCHEMA lab AUTHORIZATION postgres;
-EOSQL
+# psql --host=postgres_server --port=5432 --dbname=linda --username=postgres
+psql --username=postgres -f /schemas/00_create.sql
+psql --dbname=linda --username=postgres -f /schemas/01_create_schema.sql
+exit

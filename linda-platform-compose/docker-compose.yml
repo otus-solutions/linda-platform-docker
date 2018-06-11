@@ -1,6 +1,4 @@
 version: '3.1'
-volumes:
-  dados:
 networks:
   linda-api:
   linda-db:
@@ -18,8 +16,7 @@ services:
       - 5432:5432
     volumes:
       - ./postgres/init.sh:/docker-entrypoint-initdb.d/init.sh
-    command:
-      - 'postgres'
+      - ./postgres/schemas:/schemas/
   linda_nginx:
     container_name: linda_nginx
     image: nginx:1.12.1
@@ -27,6 +24,7 @@ services:
       - jboss_server
     volumes:
       - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/etc/nginx/sites-enabled/
+      - ${NGINX_ENABLE_PATH-./nginx/default.conf}:/etc/nginx/conf.d/default.conf
       - ${NGINX_AVAILABLE_PATH-./nginx/sites-available}:/etc/nginx/sites-available/
       - ${NGINX_SSL_PATH-./nginx/ssl}:/etc/nginx/ssl/
       - ${NGINX_CONF_PATH-./nginx/nginx.conf}:/etc/nginx/nginx.conf
@@ -44,7 +42,7 @@ services:
       - jboss_server
   jboss_server:
     container_name: jboss_server
-    image: tiagomatana/jboss:7.1.1
+    image: otussolutions/jboss:7.1.1
     # build:
     #   context: ./jboss
     #   dockerfile: Dockerfile
