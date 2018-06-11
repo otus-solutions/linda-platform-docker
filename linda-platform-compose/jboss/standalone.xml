@@ -341,7 +341,7 @@
 
     <deployments>
         <deployment name="linda-app.ear" runtime-name="linda-app.ear">
-            <content sha1="40eb47a5f1144522b11d9b67366053b2732d9ac8"/>
+            <content sha1="0ec2f28d86d3199f621222aab6acacff202ea9e9"/>
         </deployment>
     </deployments>
 </server>
