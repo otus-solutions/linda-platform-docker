@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3'
 networks:
   linda-api:
   linda-db:
@@ -8,6 +8,7 @@ services:
     image: postgres:9.6
     container_name: postgres_server
     restart: always
+    hostname: postgres_server
     env_file:
       - .env
     networks:
@@ -20,6 +21,7 @@ services:
   linda_nginx:
     container_name: linda_nginx
     image: nginx:1.12.1
+    hostname: linda_nginx
     depends_on:
       - jboss_server
     volumes:
@@ -43,6 +45,7 @@ services:
   jboss_server:
     container_name: jboss_server
     image: otussolutions/jboss:7.1.1
+    hostname: jboss_server
     # build:
     #   context: ./jboss
     #   dockerfile: Dockerfile
