@@ -338,6 +338,9 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e9dba5717ac9809d2e927ae4d4ee2ec1ab39188e
 </server>
