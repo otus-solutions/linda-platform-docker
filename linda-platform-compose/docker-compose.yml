@@ -54,7 +54,9 @@ services:
       - postgres_server
     volumes:
       - ${JBOS_XML-./jboss/standalone.xml}:/opt/jboss/jboss-as-7.1.1.Final/standalone/configuration/standalone.xml
-      - ${JBOS_CONF-./jboss/standalone.conf}:/opt/jboss/jboss-as-7.1.1.Final/bin/standalone.conf #Caso esteja utilizando a plataforma Windows, comente essa linha!
+      - ${JBOS_XML_HISTORY-./jboss/standalone_xml_history}:/opt/jboss/jboss-as-7.1.1.Final/standalone/configuration/standalone_xml_history/
+        #Caso esteja utilizando a plataforma Windows, comente essa linha!
+      - ${JBOS_CONF-./jboss/standalone.conf}:/opt/jboss/jboss-as-7.1.1.Final/bin/standalone.conf
     networks:
       - linda-api
       - linda-db
