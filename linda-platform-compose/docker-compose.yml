@@ -60,6 +60,7 @@ services:
       - linda-api
       - linda-db
     ports:
+      - 8787:8787
       - 9990:9990
       - 9999:9999
       - 8080:8080
