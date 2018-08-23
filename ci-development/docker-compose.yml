@@ -3,7 +3,7 @@ networks:
   integration:
 services:
   sonarqube:
-    image: sonarqube
+    image: sonarqube:6.7.5
     ports:
       - 9000:9000
       - 9092:9092
