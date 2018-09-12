@@ -1,6 +1,6 @@
 server {
                 listen 80;
-
+                large_client_header_buffers 10 16k;
 
                 location ~ /otus-rest {
                         proxy_pass http://localhost:8080;
