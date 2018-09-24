@@ -1,13 +1,11 @@
 version: '3'
-volumes:
-  dados:
 networks:
   otus-api:
   otus-front:
   otus-db:
 services:
   mongodb_server:
-    image: mongo:3.6.2
+    image: mongo:4.0
     container_name: mongodb_server
     restart: always
     env_file:
@@ -34,7 +32,7 @@ services:
       - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/etc/nginx/sites-enabled/
       - ${NGINX_AVAILABLE_PATH-./nginx/sites-available}:/etc/nginx/sites-available/
       - ${NGINX_SSL_PATH-./nginx/ssl}:/etc/nginx/ssl/
-      - ./nginx/assets:/usr/share/nginx/html/assets
+      - ${NGINX_ASSETS-./nginx/assets}:/usr/share/nginx/html/assets
       - ${NGINX_CONF_PATH-./nginx/nginx.conf}:/etc/nginx/nginx.conf
     networks:
       - otus-front
@@ -43,20 +41,22 @@ services:
       - 80:80
       - 443:443
     entrypoint: nginx
-    command:
       - '-g'
       - 'daemon off;'
     links:
       - wildfly_server
   wildfly_server:
     container_name: wildfly_server
-    image: jboss/wildfly:9.0.1.Final
+    image: bitnami/wildfly:14.0.1
     restart: always
     environment:
+      - WILDFLY_USERNAME=admin
+      - WILDFLY_PASSWORD=rBQqsMXU
       - LANG=en_US.UTF-8
+      - TESTE=tiago
     volumes:
-      - ${WILDFLY_XML-./wildfly/standalone.xml}:/opt/jboss/wildfly/standalone/configuration/standalone.xml
-      - ${WILDFLY_CONF-./wildfly/standalone.conf}:/opt/jboss/wildfly/bin/standalone.conf #Caso esteja utilizando a plataforma Windows, comente essa linha!
+      - ${WILDFLY_XML-./wildfly/standalone.xml}:/bitnami/wildfly/conf/standalone.xml
+      - ${WILDFLY_CONF-./wildfly/standalone.conf}:/bitnami/wildfly/bin/standalone.conf #Caso esteja utilizando a plataforma Windows, comente essa linha!
     depends_on:
       - mongodb_server
     networks:

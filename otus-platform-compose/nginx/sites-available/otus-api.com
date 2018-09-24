@@ -3,7 +3,7 @@ server {
                 large_client_header_buffers 10 16k;
 
                 location ~ /otus-rest {
-                        proxy_pass http://localhost:8080;
+                        proxy_pass http://0.0.0.0:8080;
                         proxy_intercept_errors  off;
                         proxy_set_header Host localhost;
                         proxy_set_header X-Real-IP $remote_addr;
