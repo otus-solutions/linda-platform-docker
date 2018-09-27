@@ -53,7 +53,6 @@ services:
       - WILDFLY_USERNAME=admin
       - WILDFLY_PASSWORD=rBQqsMXU
       - LANG=en_US.UTF-8
-      - TESTE=tiago
     volumes:
       - ${WILDFLY_XML-./wildfly/standalone.xml}:/bitnami/wildfly/conf/standalone.xml
       - ${WILDFLY_CONF-./wildfly/standalone.conf}:/bitnami/wildfly/bin/standalone.conf #Caso esteja utilizando a plataforma Windows, comente essa linha!
