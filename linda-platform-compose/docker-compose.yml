@@ -45,13 +45,14 @@ services:
   wildfly_server:
     container_name: wildfly_server
     image: jboss/wildfly:14.0.1.Final
+    restart: always
     hostname: wildfly_server
     environment:
       - LANG=en_US.UTF-8
     depends_on:
       - postgres_server
     volumes:
-      - ${WILDFLY_XML-./wildfly/standalone.xml}:/opt/jboss/wildfly/standalone/configuration/standalone.xml
+      - ./wildfly/standalone/configuration/standalone.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
       - ./wildfly/postgresql:/opt/jboss/wildfly/modules/org/postgresql
       - ${WILDFLY_CONF-./wildfly/standalone.conf}:/opt/jboss/wildfly/bin/standalone.conf #Caso esteja utilizando a plataforma Windows, comente essa linha!
     networks:
