@@ -52,9 +52,9 @@ services:
     depends_on:
       - postgres_server
     volumes:
-      - ./wildfly/standalone/configuration/standalone.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
-      - ./wildfly/postgresql:/opt/jboss/wildfly/modules/org/postgresql
+      - ${WILDFLY_XML-./wildfly/standalone.xml}:/opt/jboss/wildfly/standalone/configuration/standalone.xml
       - ${WILDFLY_CONF-./wildfly/standalone.conf}:/opt/jboss/wildfly/bin/standalone.conf #Caso esteja utilizando a plataforma Windows, comente essa linha!
+      - ./wildfly/postgresql:/opt/jboss/wildfly/modules/org/postgresql
     networks:
       - linda-api
       - linda-db
