@@ -158,23 +158,25 @@
     <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>
     <subsystem xmlns="urn:jboss:domain:datasources:5.0">
       <datasources>
-        <datasource jndi-name="java:jboss/datasources/LindaDatasource" pool-name="LindaDatasourcePool">
-          <connection-url>jdbc:postgresql://postgres_server:5432/linda</connection-url>
-          <driver-class>org.postgresql.Driver</driver-class>
-          <driver>postgresql-jdbc4</driver>
-          <pool>
-            <min-pool-size>2</min-pool-size>
-            <max-pool-size>20</max-pool-size>
-            <prefill>true</prefill>
-          </pool>
-          <security>
-            <user-name>postgres</user-name>
-            <password>kg7CknsvzCVkk7Sd</password>
-          </security>
-        </datasource>
-        <drivers>
-          <driver name="postgresql-jdbc4" module="org.postgresql"/>
-        </drivers>
+          <datasource jndi-name="java:jboss/datasources/LindaDatasource" pool-name="LindaDatasourcePool" enabled="true" use-java-context="true">
+            <connection-url>jdbc:postgresql://linda_database:5432/linda</connection-url>
+            <driver>postgresql-jdbc4</driver>
+            <pool>
+              <min-pool-size>2</min-pool-size>
+              <max-pool-size>20</max-pool-size>
+              <prefill>true</prefill>
+            </pool>
+            <security>
+              <user-name>postgres</user-name>
+              <password>kg7CknsvzCVkk7Sd</password>
+            </security>
+            <validation>
+              <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
+            </validation>
+          </datasource>
+          <drivers>
+            <driver name="postgresql-jdbc4" module="org.postgresql"/>
+          </drivers>
       </datasources>
     </subsystem>
     <subsystem xmlns="urn:jboss:domain:deployment-scanner:2.0">
@@ -516,6 +518,7 @@
       </endpoint-config>
       <client-config name="Standard-Client-Config"/>
     </subsystem>
+    <subsystem xmlns="urn:jboss:domain:weld:4.0"/>
   </profile>
   <interfaces>
     <interface name="management">

@@ -4,11 +4,11 @@ networks:
   linda-db:
   linda-front:
 services:
-  postgres_server:
+  linda_database:
     image: postgres:9.6
-    container_name: postgres_server
+    container_name: linda_database
     restart: always
-    hostname: postgres_server
+    hostname: linda_database
     env_file:
       - .env
     networks:
@@ -18,12 +18,12 @@ services:
     volumes:
       - ./postgres/init.sh:/docker-entrypoint-initdb.d/init.sh
       - ./postgres/schemas:/schemas/
-  linda_nginx:
-    container_name: linda_nginx
+  linda_front:
+    container_name: linda_front
     image: nginx:1.12.1
-    hostname: linda_nginx
+    hostname: linda_front
     depends_on:
-      - wildfly_server
+      - linda_server
     volumes:
       - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/etc/nginx/sites-enabled/
       - ${NGINX_ENABLE_PATH-./nginx/default.conf}:/etc/nginx/conf.d/default.conf
@@ -41,20 +41,22 @@ services:
       - '-g'
       - 'daemon off;'
     links:
-      - wildfly_server
-  wildfly_server:
-    container_name: wildfly_server
-    image: jboss/wildfly:14.0.1.Final
+      - linda_server
+  linda_server:
+    container_name: linda_server
+    image: bitnami/wildfly:14.0.1
     restart: always
-    hostname: wildfly_server
+    environment:
+      - WILDFLY_USERNAME=admin
+      - WILDFLY_PASSWORD=DFQ3JY1lwUxjeLgu
+    hostname: linda_server
     environment:
       - LANG=en_US.UTF-8
     depends_on:
-      - postgres_server
+      - linda_database
     volumes:
-      - ${WILDFLY_XML-./wildfly/standalone.xml}:/opt/jboss/wildfly/standalone/configuration/standalone.xml
-      - ${WILDFLY_CONF-./wildfly/standalone.conf}:/opt/jboss/wildfly/bin/standalone.conf #Caso esteja utilizando a plataforma Windows, comente essa linha!
-      - ./wildfly/postgresql:/opt/jboss/wildfly/modules/org/postgresql
+      - ./wildfly/bitnami-folder:/bitnami
+      - ./wildfly/postgresql:/opt/bitnami/wildfly/modules/org/postgresql
     networks:
       - linda-api
       - linda-db
@@ -64,4 +66,6 @@ services:
       - 9999:9999
       - 8080:8080
     links:
-      - postgres_server
+      - linda_database
+    privileged: true
+    user: root
