@@ -1,4 +1,4 @@
 .idea/
 **/mongoData/
-/otus-plataform-compose/wildfly/standalone.xml
+/*/bitnami/
 *.swp
