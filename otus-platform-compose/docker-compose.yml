@@ -50,7 +50,7 @@ services:
       - WILDFLY_USERNAME=admin
       - WILDFLY_PASSWORD=rBQqsMXU
     volumes:
-      - ./bitnami:/bitnami
+      - ./wildfly/persistence:/bitnami
     depends_on:
       - otus_db
     networks:
