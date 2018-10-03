@@ -50,8 +50,6 @@ services:
       - WILDFLY_USERNAME=admin
       - WILDFLY_PASSWORD=DFQ3JY1lwUxjeLgu
     hostname: linda_server
-    environment:
-      - LANG=en_US.UTF-8
     depends_on:
       - linda_database
     volumes:
