@@ -1,1 +1,0 @@
-sudo docker exec -ti wildfly_server /opt/bitnami/wildfly/bin/add-user.sh admin rBQqsMXU --silent && sudo cp ./wildfly/standalone.xml ./bitnami/wildfly/conf/standalone.xml && sudo docker restart wildfly_server
