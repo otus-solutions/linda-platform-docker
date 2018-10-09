@@ -51,6 +51,8 @@ services:
       - WILDFLY_PASSWORD=rBQqsMXU
     volumes:
       - ./wildfly/persistence:/bitnami
+      - ./wildfly/config:/config
+      - ./wildfly/app-entrypoint.sh:/app-entrypoint.sh
     depends_on:
       - otus_db
     networks:

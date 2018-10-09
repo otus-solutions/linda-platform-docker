@@ -1,6 +1,5 @@
 .idea/
 **/mongoData/
-./otus-plataform-compose/wildfly/persistence/wildfly/data/
 **/wildfly/domain/
 **/wildfly/data/
 **/wildfly/conf/standalone_xml_history
