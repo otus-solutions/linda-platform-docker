@@ -32,8 +32,9 @@ services:
       - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/etc/nginx/sites-enabled/
       - ${NGINX_AVAILABLE_PATH-./nginx/sites-available}:/etc/nginx/sites-available/
       - ${NGINX_SSL_PATH-./nginx/ssl}:/etc/nginx/ssl/
-      - ${NGINX_ASSETS-./nginx/assets}:/usr/share/nginx/html/assets
+      - ${NGINX_HTML-./nginx/html}:/usr/share/nginx/html/
       - ${NGINX_CONF_PATH-./nginx/nginx.conf}:/etc/nginx/nginx.conf
+      - ./nginx/sites-enabled/api-otus.conf:/etc/nginx/conf.d/default.conf
     networks:
       - otus-front-network
       - otus-api-network

@@ -491,7 +491,7 @@
                 <https-listener name="https" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true"/>
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
-<filter-ref name="server-header"/>
+                    <filter-ref name="server-header"/>
                     <filter-ref name="x-powered-by-header"/>
                     <filter-ref name="Access-Control-Allow-Origin"/>
                     <filter-ref name="Access-Control-Allow-Methods"/>
@@ -548,4 +548,9 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
+    <deployments>
+        <deployment name="otus-ear.ear" runtime-name="otus-ear.ear">
+            <content sha1="91dda8090cb17ef07cd0827ddb206582a1cbe845"/>
+        </deployment>
+    </deployments>
 </server>
