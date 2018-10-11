@@ -55,10 +55,15 @@ services:
       - ./wildfly/app-entrypoint.sh:/app-entrypoint.sh
     depends_on:
       - otus_db
-    mem_limit: 4G
-    mem_reservation: 512m
-    memswap_limit: 1G
-    privileged: true
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
     networks:
       - otus-api-network
       - otus-db-network
@@ -68,4 +73,5 @@ services:
       - 8787:8787
     links:
       - otus_db
+    # privileged: true
 
