@@ -1,8 +1,8 @@
 server
 {
-  listen 80;
+  listen ${NGINX_PORT};
 
-  server_name assets.localhost;
+  server_name assets.${NGINX_HOST};
 
   large_client_header_buffers 10 16k;
 
