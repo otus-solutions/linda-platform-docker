@@ -24,26 +24,25 @@ services:
       - '/etc/mongo.conf'
   otus_frontend:
     container_name: otus_frontend
-    image: nginx:1.12.1
+    image: nginx:1.15.5
+    command:
+      - 'nginx'
+      - '-g'
+      - 'daemon off;'
     restart: always
     privileged: true
     user: root
     environment:
-      - NGINX_HOST=${ENV_HOST-locahost}
-      - NGINX_PORT=${ENV_PORT-80}
-    command: >
-      /bin/bash -c
-      "envsubst < /etc/nginx/sites-available/api-domain.template > /etc/nginx/sites-enabled/api-domain.conf &&
-      envsubst < /etc/nginx/sites-available/api-otus.template > /etc/nginx/sites-enabled/api-otus.conf &&
-      envsubst < /etc/nginx/sites-available/assets.template > /etc/nginx/sites-enabled/assets.conf &&
-      envsubst < /etc/nginx/sites-available/localhost.template > /etc/nginx/sites-enabled/localhost.conf &&
-      envsubst < /etc/nginx/sites-available/otus-domain.template > /etc/nginx/sites-enabled/otus-domain.conf &&
-      envsubst < /etc/nginx/sites-available/otus.template > /etc/nginx/sites-enabled/otus.conf &&
-      envsubst < /etc/nginx/sites-available/studio.template > /etc/nginx/sites-enabled/studio.conf && exec nginx -g 'daemon off;'"
+      - STUDIO_HOST=studio.localhost
+      - OTUS_HOST=otus.localhost
+      - ASSETS_HOST=assets.localhost
+      - DOMAIN_HOST=domain.localhost
+      - OTUS_API_HOST=api-otus.localhost
+      - DOMAIN_API_HOST=api-domain.localhost
     depends_on:
       - otus_backend
     volumes:
-      - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/config/
+      - ${NGINX_ENTRYPOINT-./nginx/entrypoint.sh}:/entrypoint.sh
       - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/etc/nginx/sites-enabled/:rw
       - ${NGINX_AVAILABLE_PATH-./nginx/sites-available}:/etc/nginx/sites-available/
       - ${NGINX_SSL_PATH-./nginx/ssl}:/etc/nginx/ssl/

@@ -1,7 +1,7 @@
-confserver
+server
 {
-  listen ${NGINX_PORT};
-  server_name otus.${NGINX_HOST};
+  listen 80;
+  server_name localhost;
 
   large_client_header_buffers 10 16k;
 

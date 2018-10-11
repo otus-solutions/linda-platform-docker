@@ -1,17 +1,17 @@
 server {
-    listen ${NGINX_PORT};
-
-    server_name api-domain.${NGINX_HOST};
+    listen 80;
+    server_name localhost;
 
     large_client_header_buffers 10 16k;
 
     location /otus-domain-rest {
         proxy_pass http://otus_backend:8080;
         proxy_intercept_errors  off;
-        proxy_set_header Host api-domain.${NGINX_HOST};
+        proxy_set_header Host localhost;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+
     }
 
 }
