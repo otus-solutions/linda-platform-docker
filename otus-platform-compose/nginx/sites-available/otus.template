@@ -5,11 +5,15 @@ server
 
   large_client_header_buffers 10 16k;
 
+  location = / {
+    return 301 $scheme://$host/otus/;
+  }
+
   location /otus
   {
 
-    root /usr/share/nginx/html/otus;
-    index app/index.html;
+    root /usr/share/nginx/html;
+    index /otus/app/index.html;
 
     # kill cache
     add_header Last-Modified $date_gmt;
