@@ -1,17 +1,15 @@
-server
-{
-  listen 80;
+server{
+  listen 443 ssl;
   server_name localhost;
-
-  large_client_header_buffers 10 16k;
+  ssl_certificate /etc/nginx/ssl/otus.crt;
+  ssl_certificate_key /etc/nginx/ssl/otus.key;
 
   location = / {
-    return 301 $scheme://$host/otus/;
+    return 301 https://$host/otus/;
   }
 
   location /otus
   {
-
     root /usr/share/nginx/html;
     index /otus/app/index.html;
 
@@ -21,5 +19,23 @@ server
     if_modified_since off;
     expires off;
     etag off;
+  }
+}
+
+server
+{
+  listen 80;
+  listen [::]:80;
+  server_name localhost;
+
+  large_client_header_buffers 10 16k;
+
+  location = / {
+    return 301 https://$host/otus/;
+  }
+
+  location /otus
+  {
+    return 301 https://$host/otus/;
   }
 }
