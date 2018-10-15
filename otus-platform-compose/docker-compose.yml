@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ${DATA-./mongodb/mongoData/}:/data/db/
+      - ${MONGO_DATA-./mongodb/mongoData/}:/data/db/
       - ${MONGO_CONF_PATH-./mongodb/mongod.conf}:/etc/mongo.conf
       - ./mongodb/otus-db-build.js:/docker-entrypoint-initdb.d/initdb.js
     networks:
@@ -22,6 +22,11 @@ services:
       - '--auth'
       - '-f'
       - '/etc/mongo.conf'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: XRYs9yjU
+      PASS_OTUS: a9J1sVtL
+      PASS_DOMAIN: fLACLaFL
   otus_frontend:
     container_name: otus_frontend
     image: nginx:1.15.5
@@ -32,18 +37,11 @@ services:
     restart: always
     privileged: true
     user: root
-    environment:
-      - STUDIO_HOST=studio.localhost
-      - OTUS_HOST=otus.localhost
-      - ASSETS_HOST=assets.localhost
-      - DOMAIN_HOST=domain.localhost
-      - OTUS_API_HOST=api-otus.localhost
-      - DOMAIN_API_HOST=api-domain.localhost
     depends_on:
       - otus_backend
     volumes:
       - ${NGINX_ENTRYPOINT-./nginx/entrypoint.sh}:/entrypoint.sh
-      - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/etc/nginx/sites-enabled/:rw
+      - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/etc/nginx/sites-enabled/
       - ${NGINX_AVAILABLE_PATH-./nginx/sites-available}:/etc/nginx/sites-available/
       - ${NGINX_SSL_PATH-./nginx/ssl}:/etc/nginx/ssl/
       - ${NGINX_HTML-./nginx/html}:/usr/share/nginx/html/

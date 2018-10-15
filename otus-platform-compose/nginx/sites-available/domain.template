@@ -13,7 +13,7 @@ server
   {
 
     root /usr/share/nginx/html;
-    index otus-domain/app/index.html;
+    index /otus-domain/app/index.html;
 
     # kill cache
     add_header Last-Modified $date_gmt;

@@ -1,2 +1,0 @@
-export NGINX_HOST="dev"
-export NGINX_PORT="80"
