@@ -40,7 +40,6 @@ services:
     depends_on:
       - otus_backend
     volumes:
-      - ${NGINX_ENTRYPOINT-./nginx/entrypoint.sh}:/entrypoint.sh
       - ${NGINX_ENABLE_PATH-./nginx/sites-enabled}:/etc/nginx/sites-enabled/
       - ${NGINX_AVAILABLE_PATH-./nginx/sites-available}:/etc/nginx/sites-available/
       - ${NGINX_SSL_PATH-./nginx/ssl}:/etc/nginx/ssl/

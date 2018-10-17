@@ -1,8 +1,8 @@
 db = db.getSiblingDB('admin');
 
-passAdmin = "XRYs9yjU";
-passOtus = "a9J1sVtL";
-passDomain = "fLACLaFL";
+passAdmin = "PASS_ADMIN";
+passOtus = "PASS_OTUS";
+passDomain = "PASS_DOMAIN";
 
 db.createUser({
   user: "admin",
