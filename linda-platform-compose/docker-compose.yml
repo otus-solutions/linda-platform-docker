@@ -1,4 +1,4 @@
-version: '3'
+version: '2.4'
 networks:
   linda-api:
   linda-db:
@@ -20,7 +20,7 @@ services:
       - ./postgres/schemas:/schemas/
   linda_front:
     container_name: linda_front
-    image: nginx:1.12.1
+    image: nginx:1.15.5
     hostname: linda_front
     depends_on:
       - linda_server
@@ -33,37 +33,41 @@ services:
     networks:
       - linda-front
       - linda-api
+    privileged: true
+    user: root
     ports:
       - 80:80
       - 443:443
-    entrypoint: nginx
     command:
+      - 'nginx'
       - '-g'
       - 'daemon off;'
     links:
       - linda_server
   linda_server:
+    mem_limit: 6GB
     container_name: linda_server
     image: bitnami/wildfly:14.0.1
     restart: always
     environment:
-      - WILDFLY_USERNAME=admin
-      - WILDFLY_PASSWORD=DFQ3JY1lwUxjeLgu
+      - WILDFLY_USERNAME=${WILDFLY_USER-admin}
+      - WILDFLY_PASSWORD=${WILDFLY_PASS-DFQ3JY1lwUxjeLgu}
     hostname: linda_server
     depends_on:
       - linda_database
     volumes:
-      - ./wildfly/bitnami-folder:/bitnami
-      - ./wildfly/postgresql:/opt/bitnami/wildfly/modules/org/postgresql
+      - ./wildfly/persistence:/bitnami
+      - ./wildfly/config:/config
+      - ./wildfly/postgresql:/opt/bitnami/wildfly/modules/org/postgresql:rw
     networks:
       - linda-api
       - linda-db
     ports:
-      - 4242:4242
-      - 9990:9990
       - 9999:9999
+      - 8787:8787
+      - 9990:9990
       - 8080:8080
     links:
       - linda_database
-    privileged: true
-    user: root
+    env_file:
+      - .env
