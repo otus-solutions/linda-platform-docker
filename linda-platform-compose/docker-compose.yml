@@ -1,4 +1,4 @@
-version: '2.4'
+version: '3'
 networks:
   linda-api:
   linda-db:
@@ -45,7 +45,6 @@ services:
     links:
       - linda_server
   linda_server:
-    mem_limit: 6GB
     container_name: linda_server
     image: bitnami/wildfly:14.0.1
     restart: always
