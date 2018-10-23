@@ -1,5 +1,6 @@
 .idea/
 **/mongoData/
+**/wildfly/persistence/**
 **/wildfly/domain/
 **/wildfly/data/
 **/wildfly/conf/standalone_xml_history
