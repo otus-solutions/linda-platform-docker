@@ -54,14 +54,15 @@ cp ./wildfly/config/standalone.conf ./wildfly/persistence/wildfly/bin/standalone
 sleep 1
 
 printf "Atualizando usuário administrador...\n"
-sed -i -E "s/WILDFLY_USERNAME=.+/WILDFLY_USER=$user_wildfly/g" .env
-sed -i -E "s/WILDFLY_PASSWORD=.+/WILDFLY_PASS=$pass_wildfly/g" .env
+sed -i -E "s/WILDFLY_USER=.+/WILDFLY_USER=$user_wildfly/g" .env
+sed -i -E "s/WILDFLY_PASS=.+/WILDFLY_PASS=$pass_wildfly/g" .env
 sleep 1
 printf "\n[COMPLETO]\n\n\n"
 
 printf "${DARKGRAY}#############${NC} POSTGRES${DARKGRAY} #############${NC}\n"
 printf "${GREEN}Alterando a senha...\n"
 sed -i -E "s/kg7CknsvzCVkk7Sd/$passPostgres/g" ./wildfly/persistence/wildfly/conf/standalone.xml
+sed -i -E "s/kg7CknsvzCVkk7Sd/$passPostgres/g" .env
 sleep 1
 printf "\n[COMPLETO]\n"
 

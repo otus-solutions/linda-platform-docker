@@ -11,3 +11,5 @@
 **/wildfly/conf/standalone-load-balancer.xml
 **/.initialized
 *.swp
+**/start.sh
+**/.env

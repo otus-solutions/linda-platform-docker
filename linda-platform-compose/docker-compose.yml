@@ -66,6 +66,8 @@ services:
       - 8787:8787
       - 9990:9990
       - 8080:8080
+    privileged: true
+    user: root
     links:
       - linda_database
     env_file:
