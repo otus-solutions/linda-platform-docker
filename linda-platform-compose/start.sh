@@ -1,5 +1,6 @@
 #!/bin/bash
 DARKGRAY='\033[1;30m'
+RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
@@ -60,17 +61,19 @@ sudo rm -rf wildfly/persistence/wildfly
 sleep 1
 printf "Importando configurações necessárias...\n"
 
-case $debug in
-    y)
-        mkdir -p ./wildfly/persistence/wildfly/bin
-        ;;
-    *)
-        mkdir -p ./wildfly/persistence/wildfly/bin
-        cp ./wildfly/config/standalone.conf ./wildfly/persistence/wildfly/bin/standalone.conf
-        ;;
-esac
 mkdir -p ./wildfly/persistence/wildfly/conf
 cp ./wildfly/config/standalone.xml ./wildfly/persistence/wildfly/conf/standalone.xml
+mkdir -p ./wildfly/persistence/wildfly/bin
+cp ./wildfly/config/standalone.conf ./wildfly/persistence/wildfly/bin/standalone.conf
+# Disable debug?
+case $debug in
+    y)
+        printf "${RED}DEBUG MODE DISABLED${NC}"
+        ;;
+    *)
+        sed -i "s/#debug/JAVA_OPTS/g" ./wildfly/persistence/wildfly/bin/standalone.conf
+        ;;
+esac
 sleep 1
 
 printf "Atualizando usuário administrador...\n"
@@ -82,7 +85,7 @@ printf "\n[COMPLETO]\n\n\n"
 printf "${DARKGRAY}#############${NC} POSTGRES${DARKGRAY} #############${NC}\n"
 printf "${GREEN}Alterando a senha...\n"
 sed -i -E "s/kg7CknsvzCVkk7Sd/$passPostgres/g" ./wildfly/persistence/wildfly/conf/standalone.xml
-sed -i -E "s/kg7CknsvzCVkk7Sd/$passPostgres/g" .env
+sed -i -E "s/POSTGRES_PASSWORD=.+/POSTGRES_PASSWORD=$passPostgres/g" .env
 sleep 1
 printf "\n[COMPLETO]\n"
 
