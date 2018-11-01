@@ -44,6 +44,7 @@ services:
       - 'daemon off;'
     links:
       - linda_server
+    restart: always
   linda_server:
     container_name: linda_server
     image: bitnami/wildfly:14.0.1
