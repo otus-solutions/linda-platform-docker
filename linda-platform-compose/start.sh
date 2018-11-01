@@ -63,6 +63,9 @@ printf "Importando configurações necessárias...\n"
 case $debug in
     y)
         mkdir -p ./wildfly/persistence/wildfly/bin
+        ;;
+    *)
+        mkdir -p ./wildfly/persistence/wildfly/bin
         cp ./wildfly/config/standalone.conf ./wildfly/persistence/wildfly/bin/standalone.conf
         ;;
 esac
