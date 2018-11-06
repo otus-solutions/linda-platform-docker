@@ -18,6 +18,7 @@ services:
     volumes:
       - ./postgres/init.sh:/docker-entrypoint-initdb.d/init.sh
       - ./postgres/schemas:/schemas/
+      - ./postgres/database:/var/lib/postgresql/data
   linda_front:
     container_name: linda_front
     image: nginx:1.15.5
@@ -64,7 +65,6 @@ services:
       - linda-api
       - linda-db
     ports:
-      - 9999:9999
       - 8787:8787
       - 9990:9990
       - 8080:8080
