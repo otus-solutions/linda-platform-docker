@@ -59,6 +59,7 @@ services:
       - ./wildfly/persistence:/bitnami
       - ./wildfly/config:/config
       - ./wildfly/postgresql:/opt/bitnami/wildfly/modules/org/postgresql:rw
+      - ./wildfly/tmp:/opt/bitnami/wildfly/tmp
     networks:
       - linda-api
       - linda-db
