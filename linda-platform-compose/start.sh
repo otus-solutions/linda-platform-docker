@@ -65,6 +65,8 @@ mkdir -p ./wildfly/persistence/wildfly/conf
 cp ./wildfly/config/standalone.xml ./wildfly/persistence/wildfly/conf/standalone.xml
 mkdir -p ./wildfly/persistence/wildfly/bin
 cp ./wildfly/config/standalone.conf ./wildfly/persistence/wildfly/bin/standalone.conf
+
+mkdir -p ./wildfly/persistence/wildfly/linda_vfs
 # Disable debug?
 case $debug in
     y)

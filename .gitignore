@@ -3,12 +3,7 @@
 **/wildfly/persistence/**
 **/wildfly/domain/
 **/wildfly/data/
-**/wildfly/conf/standalone_xml_history
-**/wildfly/conf/*.properties
-**/wildfly/conf/standalone-full-ha.xml
-**/wildfly/conf/standalone-full.xml
-**/wildfly/conf/standalone-ha.xml
-**/wildfly/conf/standalone-load-balancer.xml
+**/wildfly/conf/*
 **/.initialized
 *.swp
 **/start.sh
