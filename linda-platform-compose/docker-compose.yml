@@ -46,6 +46,8 @@ services:
     links:
       - linda_server
     restart: always
+    env_file:
+      - .env
   linda_server:
     container_name: linda_server
     image: bitnami/wildfly:14.0.1
@@ -53,14 +55,14 @@ services:
     environment:
       - WILDFLY_USERNAME=${WILDFLY_USER-admin}
       - WILDFLY_PASSWORD=${WILDFLY_PASS-DFQ3JY1lwUxjeLgu}
+      - TZ=America/Sao_Paulo
     hostname: linda_server
     depends_on:
       - linda_database
     volumes:
       - ./wildfly/persistence:/bitnami
-      - ./wildfly/config:/config
       - ./wildfly/postgresql:/opt/bitnami/wildfly/modules/org/postgresql:rw
-      - ./wildfly/tmp:/opt/bitnami/wildfly/tmp
+      - ./wildfly/config/timezone:/etc/timezone
     networks:
       - linda-api
       - linda-db

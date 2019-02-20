@@ -91,9 +91,7 @@ sed -i -E "s/POSTGRES_PASSWORD=.+/POSTGRES_PASSWORD=$passPostgres/g" .env
 sleep 1
 printf "\n[COMPLETO]\n"
 
-
-
-
+cp timezone.sh ./wildfly/persistence
 
 printf "${NC}\n\n${BLUE}FIM DA CONFIGURAÇÃO${BLUE}\n\n${NC}"
 
